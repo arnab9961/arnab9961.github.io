@@ -12,6 +12,18 @@
 </head>
 
 <body>
+	<div class="page-loader" id="page-loader" role="status" aria-label="Loading portfolio">
+		<img id="loader-image" src="images/light-mode-removebg-preview.png" alt="">
+	</div>
+	<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode"
+		title="Switch to dark mode">
+		<span class="theme-icon theme-icon-sun" aria-hidden="true">
+			<span class="sun-shape"></span>
+		</span>
+		<span class="theme-icon theme-icon-moon" aria-hidden="true">
+			<span class="moon-shape"></span>
+		</span>
+	</button>
 	<table
 		style="width:100%;max-width:700px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
 		<tbody>
@@ -86,6 +98,36 @@
 							<!---------------------------------------------------------------------------------------------------------------->
 						</tbody>
 					</table>
+					<script>
+						(function () {
+							const page = document.documentElement;
+							const loader = document.getElementById('page-loader');
+							const loaderImage = document.getElementById('loader-image');
+							const themeToggle = document.getElementById('theme-toggle');
+							const savedTheme = localStorage.getItem('portfolio-theme');
+							const initialTheme = savedTheme === 'dark' ? 'dark' : 'light';
+
+							function setTheme(theme) {
+								const isDark = theme === 'dark';
+								page.dataset.theme = theme;
+								loaderImage.src = isDark ? 'images/dark-mode-removebg-preview.png' : 'images/light-mode-removebg-preview.png';
+								themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+								themeToggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+								localStorage.setItem('portfolio-theme', theme);
+							}
+
+							setTheme(initialTheme);
+							themeToggle.addEventListener('click', function () {
+								setTheme(page.dataset.theme === 'dark' ? 'light' : 'dark');
+							});
+
+							window.addEventListener('load', function () {
+								window.setTimeout(function () {
+									loader.classList.add('is-hidden');
+								}, 250);
+							});
+						}());
+					</script>
 
 
 					<!---------------------------------------------------------------------------------------------------------------->
