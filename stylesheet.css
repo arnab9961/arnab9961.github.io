@@ -334,8 +334,7 @@ em {
 
 @media (max-width: 720px) {
   .theme-toggle {
-    top: auto;
-    bottom: 16px;
+    top: 12px;
     right: 12px;
   }
 
